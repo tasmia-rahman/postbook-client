@@ -91,6 +91,13 @@ const Login = () => {
                                 </div>
                             </form>
                         </div>
+                        <div class="w-full px-[13px] flex items-center justify-between mt-4">
+                            <span class="w-5/12 border-b dark:border-gray-600"></span>
+
+                            <span class="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline">or</span>
+
+                            <span class="w-5/12 border-b dark:border-gray-600"></span>
+                        </div>
                         <div className='w-full px-[13px]'>
                             <button onClick={handleGoogleSignIn} class="w-full flex items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <div class="px-4 py-2">
