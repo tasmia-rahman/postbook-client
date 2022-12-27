@@ -23,8 +23,8 @@ const SignUp = () => {
                 const user = result.user;
                 console.log(user);
                 toast.success('Registered Successfully.');
-                form.reset();
                 setLoading(false);
+                form.reset();
 
                 const profile = { displayName: username };
                 updateUserInfo(profile)
@@ -101,7 +101,7 @@ const SignUp = () => {
 
                                     <div class="mt-6 text-center ">
                                         <a href="/login" class="text-sm text-blue-500 hover:underline dark:text-blue-400">
-                                            Already have an account?
+                                            Already have an account? Login
                                         </a>
                                     </div>
                                 </div>
