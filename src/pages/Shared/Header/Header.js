@@ -27,12 +27,12 @@ const Header = () => {
                         <Link className='nav-link' to='/'>Home</Link>
                         <Link className='nav-link' to='/media'>Media</Link>
                         <Link className='nav-link' to='/message'>Message</Link>
-                        <Link className='nav-link' to='/about'>About</Link>
                     </Nav>
                     <Nav>
                         {
                             user?.uid ?
                                 <>
+                                    <Link className='nav-link' to='/about'>About</Link>
                                     <Link className='nav-link' onClick={handleLogOut}>Log out</Link>
                                 </>
                                 :
