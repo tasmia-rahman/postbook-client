@@ -14,7 +14,7 @@ const About = () => {
     const handleShow = () => setShow(true);
 
     const { data: selectedUser = [], refetch } = useQuery({
-        queryKey: ['products', user?.email],
+        queryKey: ['selectedUser', user?.email],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/users/${user?.email}`);
             const data = await res.json();
