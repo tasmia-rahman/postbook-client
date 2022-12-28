@@ -35,8 +35,20 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 setLoading(false);
+
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({ name: user.displayName, photoURL: user.photoURL, email: user.email })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                    })
+                    .catch(err => console.log(err));
             })
-            .catch(error => setError(error.message))
+            .catch(error => setError(error.message));
     }
 
     return (
