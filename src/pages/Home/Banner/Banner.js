@@ -11,7 +11,7 @@ const Banner = () => {
                 </div>
                 <div className="flex flex-col justify-center p-6 text-center rounded-sm lg:max-w-md xl:max-w-lg lg:text-left">
                     <h2 className="font-bold leading-none mb-4">
-                        Post What You <FaHeart className="text-indigo-600 inline"></FaHeart> The Most!
+                        Post What You <FaHeart className="text-indigo-600 inline"></FaHeart> The Most At Any Moment!
                     </h2>
                     <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
                         <a href="#addpost" className="px-8 py-2 text-lg font-semibold rounded bg-indigo-600 hover:bg-indigo-800 hover:text-white text-gray-50 no-underline mx-auto">Add Post</a>

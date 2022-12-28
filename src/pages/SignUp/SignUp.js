@@ -2,6 +2,9 @@ import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './../../contexts/AuthProvider/AuthProvider';
+import universitySvg from '../../assets/images/university-svgrepo-com.svg';
+import addressSvg from '../../assets/images/map-pin-svgrepo-com.svg';
+import profilePicSvg from '../../assets/images/profile-user-svgrepo-com.svg';
 
 const SignUp = () => {
     const { createUser, updateUserInfo, setLoading } = useContext(AuthContext);
@@ -14,8 +17,11 @@ const SignUp = () => {
         setError('');
 
         const form = event.target;
-        const username = form.username.value;
+        const name = form.name.value;
+        const photoURL = form.photoURL.value;
         const email = form.email.value;
+        const institution = form.institution.value;
+        const address = form.address.value;
         const password = form.password.value;
 
         createUser(email, password)
@@ -26,29 +32,44 @@ const SignUp = () => {
                 setLoading(false);
                 form.reset();
 
-                const profile = { displayName: username };
+                const profile = { displayName: name, photoURL: photoURL };
                 updateUserInfo(profile)
                     .then(() => {
-                        // Profile updated!
-                        navigate('/');
+                        saveUserInfo(name, photoURL, email, institution, address);
                     }).catch((error) => {
-                        // An error occurred.
+                        console.log(error);
                     });
             })
             .catch(error => setError(error.message))
 
     }
 
+    const saveUserInfo = (name, photoURL, email, institution, address) => {
+        const user = { name, photoURL, email, institution, address };
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                navigate('/');
+            })
+            .catch(err => console.log(err))
+    }
+
     return (
         <div class="bg-white">
             <div class="lg:grid lg:min-h-screen lg:grid-cols-5">
                 <aside
-                    class="relative block lg:order-last lg:col-span-2 h-screen xl:col-span-2"
+                    class="relative block lg:order-last lg:col-span-2 h-full xl:col-span-2"
                 >
                     <img
                         alt="Pattern"
                         src="https://images.unsplash.com/photo-1605106702734-205df224ecce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-                        class="absolute inset-0 h-screen w-full object-cover"
+                        class="absolute inset-0 h-full w-full object-cover"
                     />
                 </aside>
 
@@ -60,6 +81,7 @@ const SignUp = () => {
                         <h4 className='text-center'>Sign Up</h4>
                         <div class="container flex items-center justify-center px-6 mx-auto">
                             <form class="w-full max-w-md" onSubmit={handleSubmit}>
+
                                 <div class="relative flex items-center mt-8">
                                     <span class="absolute">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -67,7 +89,15 @@ const SignUp = () => {
                                         </svg>
                                     </span>
 
-                                    <input required type="text" name='username' class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Username" />
+                                    <input required type="text" name='name' class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Name" />
+                                </div>
+
+                                <div class="relative flex items-center mt-8">
+                                    <span class="absolute">
+                                        <img src={profilePicSvg} alt='' class="w-6 h-6 mx-3" />
+                                    </span>
+
+                                    <input required type="text" name="photoURL" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="PhotoURL" />
                                 </div>
 
                                 <div class="relative flex items-center mt-6">
@@ -77,7 +107,23 @@ const SignUp = () => {
                                         </svg>
                                     </span>
 
-                                    <input required type="email" name='email' class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address" />
+                                    <input required type="email" name='email' class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email" />
+                                </div>
+
+                                <div class="relative flex items-center mt-8">
+                                    <span class="absolute">
+                                        <img src={universitySvg} alt='' class="w-5 h-5 mx-3" />
+                                    </span>
+
+                                    <input required type="text" name='institution' class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Institution" />
+                                </div>
+
+                                <div class="relative flex items-center mt-8">
+                                    <span class="absolute">
+                                        <img src={addressSvg} alt='' class="w-8 h-8 ml-2 mr-3" />
+                                    </span>
+
+                                    <input required type="text" name='address' class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Address" />
                                 </div>
 
                                 <div class="relative flex items-center mt-4">
