@@ -6,6 +6,8 @@ import About from './../../pages/About/About/About';
 import SignUp from './../../pages/SignUp/SignUp';
 import Login from './../../pages/Login/Login';
 import Error from "../../pages/Error/Error";
+import Details from './../../pages/Details/Details';
+import PrivateRoute from './../PrivateRoute/PrivateRoute';
 
 export const routes = createBrowserRouter([
     {
@@ -35,6 +37,11 @@ export const routes = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login></Login>
+            },
+            {
+                path: '/details/:id',
+                loader: ({ params }) => fetch(`http://localhost:5000/details/${params.id}`),
+                element: <PrivateRoute><Details></Details></PrivateRoute>
             }
         ]
     },

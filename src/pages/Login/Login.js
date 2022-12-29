@@ -1,10 +1,15 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { AuthContext } from './../../contexts/AuthProvider/AuthProvider';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const { login, providerLogin, setLoading } = useContext(AuthContext);
     const [error, setError] = useState('');
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -20,6 +25,7 @@ const Login = () => {
                 console.log(user);
                 setLoading(false);
                 form.reset();
+                navigate(from, { replace: true });
             })
             .catch(error => setError(error.message))
             .finally(() => {
@@ -45,6 +51,7 @@ const Login = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
+                        navigate(from, { replace: true });
                     })
                     .catch(err => console.log(err));
             })

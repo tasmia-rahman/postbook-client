@@ -13,7 +13,7 @@ const Media = () => {
     });
 
     return (
-        <div className='w-11/12 mx-auto my-8 grid grid-cols-3 gap-10'>
+        <div className='w-11/12 mx-auto my-8 grid grid-col-1 lg:grid-cols-3 gap-10'>
             {
                 posts.map((post) => <PostCard key={post._id} post={post}></PostCard>)
             }
