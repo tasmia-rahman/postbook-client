@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import MediaPostCard from '../MediaPostCard/MediaPostCard';
+import PostCard from './../PostCard/PostCard';
 
 const Media = () => {
     const { data: posts = [] } = useQuery({
@@ -13,9 +13,9 @@ const Media = () => {
     });
 
     return (
-        <div className='w-10/12 mx-auto my-8 grid grid-cols-3 gap-6'>
+        <div className='w-11/12 mx-auto my-8 grid grid-cols-3 gap-10'>
             {
-                posts.map((post) => <MediaPostCard key={post._id} post={post}></MediaPostCard>)
+                posts.map((post) => <PostCard key={post._id} post={post}></PostCard>)
             }
         </div>
     );
