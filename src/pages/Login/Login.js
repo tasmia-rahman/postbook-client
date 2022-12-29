@@ -62,7 +62,7 @@ const Login = () => {
         <div class="bg-white">
             <div class="lg:grid lg:min-h-screen lg:grid-cols-5">
                 <aside
-                    class="relative block lg:order-last lg:col-span-2 h-screen xl:col-span-2"
+                    class="relative hidden lg:block lg:order-last lg:col-span-2 h-screen xl:col-span-2"
                 >
                     <img
                         alt="Pattern"

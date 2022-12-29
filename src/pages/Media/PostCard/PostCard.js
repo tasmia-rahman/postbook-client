@@ -18,9 +18,11 @@ const PostCard = ({ post }) => {
         }
     });
 
-    const [loveReact, setLoveReact] = useState(singlePost.loveCount);
-    console.log(loveReact);
+    const [love, setLove] = useState(singlePost.loveCount);
+    console.log(love);
+    console.log(singlePost.loveCount);
     const [comments, setComments] = useState([]);
+
     // const { data: comments = [] } = useQuery({
     //     queryKey: ['comments'],
     //     queryFn: async () => {
@@ -77,7 +79,7 @@ const PostCard = ({ post }) => {
             .then(data => {
                 if (data.modifiedCount > 0) {
                     refetch();
-                    setLoveReact(singlePost.loveCount);
+                    setLove(singlePost.loveCount);
                 }
             })
     }
@@ -90,7 +92,7 @@ const PostCard = ({ post }) => {
             .then(data => {
                 if (data.modifiedCount > 0) {
                     refetch();
-                    setLoveReact(singlePost.loveCount);
+                    setLove(singlePost.loveCount);
                 }
             })
     }
@@ -114,7 +116,7 @@ const PostCard = ({ post }) => {
                 <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                         {/* {
-                            loveReact ?
+                            love ?
                                 <>
                                     <div className="flex items-center space-x-3">
                                         <button onClick={handleRemoveLove} type="button" title="Like post" className="flex items-center justify-center mr-1">
@@ -141,7 +143,7 @@ const PostCard = ({ post }) => {
                                     <path d="M453.122,79.012a128,128,0,0,0-181.087.068l-15.511,15.7L241.142,79.114l-.1-.1a128,128,0,0,0-181.02,0l-6.91,6.91a128,128,0,0,0,0,181.019L235.485,449.314l20.595,21.578.491-.492.533.533L276.4,450.574,460.032,266.94a128.147,128.147,0,0,0,0-181.019ZM437.4,244.313,256.571,425.146,75.738,244.313a96,96,0,0,1,0-135.764l6.911-6.91a96,96,0,0,1,135.713-.051l38.093,38.787,38.274-38.736a96,96,0,0,1,135.765,0l6.91,6.909A96.11,96.11,0,0,1,437.4,244.313Z"></path>
                                 </svg>
                             </button>
-                            {loveReact}
+                            {love}
                         </div>
                         <button type="button" title="Add a comment" className="flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current">
@@ -156,7 +158,7 @@ const PostCard = ({ post }) => {
 
                 <div className="space-y-3 my-3">
                     <form onSubmit={handleAddComment} className='flex justify-between items-center'>
-                        <input type="text" name='comment' placeholder="Add a comment..." className="w-full py-2 px-2 my-2 bg-transparent border rounded text-sm pl-0 text-gray-800" spellcheck="false" data-ms-editor="true" />
+                        <input type="text" name='comment' placeholder="Add a comment..." className="w-full py-2 px-2 my-2 bg-transparent border rounded text-sm pl-0 text-gray-800" data-ms-editor="true" />
                         <button type='submit' className="h-9 px-3 py-1 ml-3 font-semibold rounded bg-indigo-600 hover:bg-indigo-800 hover:text-white text-gray-50">Add</button>
                     </form>
                     <h5 className='mt-0'>Comments</h5>

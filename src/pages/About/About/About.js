@@ -27,11 +27,11 @@ const About = () => {
             <div className='flex justify-end pt-8 pr-8'>
                 <button onClick={handleShow} className="px-8 py-1 text-lg font-semibold rounded bg-indigo-600 hover:bg-indigo-800 hover:text-white text-gray-50 no-underline">Edit</button>
             </div>
-            <div className="container flex flex-col p-6 mx-auto py-16 lg:flex-row">
-                <div className="flex items-center justify-center p-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
+            <div className="container flex flex-col p-6 mx-auto lg:flex-row">
+                <div className="flex items-center justify-center p-6 lg:pt-0 lg:mb-12 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
                     <img src={aboutImg} alt="about" className="object-contain h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128" />
                 </div>
-                <div className='m-auto'>
+                <div className='mx-auto my-4 lg:py-10'>
                     <h3>About Me</h3>
                     <p className='text-xl'>Name: {selectedUser.name}</p>
                     <p className='text-xl'>Email: {selectedUser.email}</p>
