@@ -18,8 +18,8 @@ const Details = () => {
     }, [details._id]);
 
     return (
-        <div class="overflow-hidden bg-gray-50 h-screen">
-            <div class="grid grid-col-1 lg:grid-cols-2 w-3/4 m-auto">
+        <div class="overflow-hidden bg-gray-50 h-screen my-auto">
+            <div class="grid grid-col-1 lg:grid-cols-2 w-3/4 mx-auto">
                 <div class="p-8 md:p-12 lg:px-16 lg:py-24">
                     <div class="mx-auto max-w-xl">
                         <h2 class="text-2xl font-bold text-gray-900 md:text-3xl">
@@ -31,17 +31,24 @@ const Details = () => {
                         </p>
 
                         <p class="md:mt-4 md:block font-semibold">
-                            Loved By:
+                            Loved By: {details.loveCount}
                         </p>
 
                         <div>
                             <h5 className='mt-0'>Comments</h5>
                             {
-                                comments.map(comment =>
-                                    <p key={comment._id} className="text-sm mt-1">
-                                        <span className="text-base font-semibold mr-2">{comment.commentedUserName}</span>{comment.comment}
-                                    </p>
-                                )
+                                comments?.length > 0 ?
+                                    <>
+                                        {
+                                            comments?.map(comment =>
+                                                <p key={comment._id} className="text-sm mt-1">
+                                                    <span className="text-base font-semibold mr-2">{comment.commentedUserName}</span>{comment.comment}
+                                                </p>
+                                            )
+                                        }
+                                    </>
+                                    :
+                                    <p>No comments</p>
                             }
                         </div>
                     </div>

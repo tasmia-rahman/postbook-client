@@ -53,7 +53,8 @@ const AddPost = () => {
                     fetch('http://localhost:5000/posts', {
                         method: 'POST',
                         headers: {
-                            'content-type': 'application/json'
+                            'content-type': 'application/json',
+                            authorization: `bearer ${localStorage.getItem('accessToken')}`
                         },
                         body: JSON.stringify(post)
                     })
@@ -76,7 +77,7 @@ const AddPost = () => {
                 <div className='flex' >
                     <div>
                         {
-                            user?.photoURL && <img src={user?.photoURL} alt='' className='rounded-full h-12 w-12' />
+                            user?.photoURL && <img src={user?.photoURL} alt='' referrerpolicy='no-referrer' className='rounded-full h-12 w-12' />
                         }
                     </div>
                     <div className='w-full ml-3'>

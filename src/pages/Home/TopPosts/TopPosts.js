@@ -13,14 +13,17 @@ const TopPosts = () => {
     });
 
     return (
-        <div>
-            <h3 className='text-center'>Top Posts</h3>
-            <div className='w-10/12 mx-auto my-8 grid grid-cols-3 gap-6'>
-                {
-                    // topPosts && topPosts.map((topPost) => <PostCard key={topPost._id} post={topPost}></PostCard>)
-                }
+        topPosts?.length > 0 ?
+            <div className='mb-28'>
+                <h3 className='text-center'>Top Posts</h3>
+                <div className='w-10/12 mx-auto my-8 grid grid-col-1 lg:grid-cols-3 gap-10'>
+                    {
+                        topPosts?.map((topPost) => <PostCard key={topPost._id} post={topPost}></PostCard>)
+                    }
+                </div>
             </div>
-        </div>
+            :
+            ''
     );
 };
 

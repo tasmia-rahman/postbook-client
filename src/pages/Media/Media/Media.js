@@ -13,10 +13,13 @@ const Media = () => {
     });
 
     return (
-        <div className='w-11/12 mx-auto my-8 grid grid-col-1 lg:grid-cols-3 gap-10'>
-            {
-                posts.map((post) => <PostCard key={post._id} post={post} refetch={refetch}></PostCard>)
-            }
+        <div className='mt-16 mb-28'>
+            <h3 className='text-center mb-10'>All Posts</h3>
+            <div className='w-11/12 mx-auto grid grid-col-1 lg:grid-cols-3 gap-10'>
+                {
+                    posts.map((post) => <PostCard key={post._id} post={post} refetch={refetch}></PostCard>)
+                }
+            </div>
         </div>
     );
 };

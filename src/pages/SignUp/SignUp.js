@@ -5,12 +5,19 @@ import { AuthContext } from './../../contexts/AuthProvider/AuthProvider';
 import universitySvg from '../../assets/images/university-svgrepo-com.svg';
 import addressSvg from '../../assets/images/map-pin-svgrepo-com.svg';
 import profilePicSvg from '../../assets/images/profile-user-svgrepo-com.svg';
+import useToken from './../../hooks/useToken';
 
 const SignUp = () => {
     const { createUser, updateUserInfo, setLoading } = useContext(AuthContext);
     const [error, setError] = useState('');
 
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
+    const [token] = useToken(createdUserEmail);
+
     const navigate = useNavigate();
+    if (token) {
+        navigate('/');
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -55,7 +62,7 @@ const SignUp = () => {
         })
             .then(res => res.json())
             .then(data => {
-                navigate('/');
+                setCreatedUserEmail(email);
             })
             .catch(err => console.log(err));
     }

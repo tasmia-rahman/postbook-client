@@ -40,7 +40,11 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/details/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/details/${params.id}`),
+                loader: ({ params }) => fetch(`http://localhost:5000/details/${params.id}`, {
+                    headers: {
+                        authorization: `bearer ${localStorage.getItem('accessToken')}`
+                    }
+                }),
                 element: <PrivateRoute><Details></Details></PrivateRoute>
             }
         ]
