@@ -49,7 +49,7 @@ const Login = () => {
                 const user = result.user;
                 setLoading(false);
 
-                fetch('http://localhost:5000/users', {
+                fetch('https://postbook-server.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

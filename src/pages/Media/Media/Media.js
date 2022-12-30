@@ -1,16 +1,23 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import PostCard from './../PostCard/PostCard';
+import { Spinner } from 'react-bootstrap';
 
 const Media = () => {
-    const { data: posts = [], refetch } = useQuery({
+    const { data: posts = [], refetch, isLoading } = useQuery({
         queryKey: ['posts'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/posts');
+            const res = await fetch('https://postbook-server.vercel.app/posts');
             const data = await res.json();
             return data;
         }
     });
+
+    if (isLoading) {
+        return <div className='text-center my-60'>
+            <Spinner animation="border" />
+        </div>;
+    }
 
     return (
         <div className='mt-16 mb-28'>

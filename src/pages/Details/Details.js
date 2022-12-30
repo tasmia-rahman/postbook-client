@@ -8,7 +8,7 @@ const Details = () => {
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/comments/${details._id}`)
+        fetch(`https://postbook-server.vercel.app/comments/${details._id}`)
             .then(res => res.json())
             .then(data => {
                 setComments(data);

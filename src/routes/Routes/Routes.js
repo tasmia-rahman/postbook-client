@@ -40,11 +40,7 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/details/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/details/${params.id}`, {
-                    headers: {
-                        authorization: `bearer ${localStorage.getItem('accessToken')}`
-                    }
-                }),
+                loader: ({ params }) => fetch(`https://postbook-server.vercel.app/details/${params.id}`),
                 element: <PrivateRoute><Details></Details></PrivateRoute>
             }
         ]

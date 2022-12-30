@@ -12,7 +12,7 @@ const PostCard = ({ post, refetch }) => {
     // const { data: singlePost = {}, refetch } = useQuery({
     //     queryKey: ['singlePost'],
     //     queryFn: async () => {
-    //         const res = await fetch(`http://localhost:5000/posts/${_id}`);
+    //         const res = await fetch(`https://postbook-server.vercel.app/posts/${_id}`);
     //         const data = await res.json();
     //         return data;
     //     }
@@ -21,7 +21,7 @@ const PostCard = ({ post, refetch }) => {
     // const { data: comments = [] } = useQuery({
     //     queryKey: ['comments'],
     //     queryFn: async () => {
-    //         const res = await fetch(`http://localhost:5000/comments/${_id}`);
+    //         const res = await fetch(`https://postbook-server.vercel.app/comments/${_id}`);
     //         const data = await res.json();
     //         return data;
     //     }
@@ -33,7 +33,7 @@ const PostCard = ({ post, refetch }) => {
     const [addComment, setAddComment] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/posts/${_id}`)
+        fetch(`https://postbook-server.vercel.app/posts/${_id}`)
             .then(res => res.json())
             .then(data => {
                 setLoveCount(data.loveCount);
@@ -43,7 +43,7 @@ const PostCard = ({ post, refetch }) => {
     }, [_id, love]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/comments/${_id}`)
+        fetch(`https://postbook-server.vercel.app/comments/${_id}`)
             .then(res => res.json())
             .then(data => {
                 setComments(data);
@@ -61,7 +61,7 @@ const PostCard = ({ post, refetch }) => {
 
         const commentInfo = { postId: _id, commentedUserName: user?.displayName, commentedUserEmail: user?.email, commentedUserPhotoURL: user?.photoURL, comment };
 
-        fetch('http://localhost:5000/comments', {
+        fetch('https://postbook-server.vercel.app/comments', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -83,19 +83,24 @@ const PostCard = ({ post, refetch }) => {
     }
 
     const handleAddLove = () => {
-        fetch(`http://localhost:5000/posts/addLove/${_id}`, {
-            method: 'PUT'
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.modifiedCount > 0) {
-                    setLove(true);
-                }
+        if (!user) {
+            toast.error('You can not give react without login!');
+        }
+        else {
+            fetch(`https://postbook-server.vercel.app/posts/addLove/${_id}`, {
+                method: 'PUT'
             })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.modifiedCount > 0) {
+                        setLove(true);
+                    }
+                })
+        }
     }
 
     const handleRemoveLove = () => {
-        fetch(`http://localhost:5000/posts/removeLove/${_id}`, {
+        fetch(`https://postbook-server.vercel.app/posts/removeLove/${_id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -110,7 +115,7 @@ const PostCard = ({ post, refetch }) => {
         <div className="rounded-md shadow-md w-full bg-gray-50 text-gray-800">
             <div className="flex items-center justify-between p-3 bg-gray-100">
                 <div className="flex items-center space-x-2">
-                    <img src={userPhotoURL} alt="" className="object-cover object-center w-8 h-8 rounded-full shadow-sm bg-gray-500 border-gray-300" />
+                    <img src={userPhotoURL} alt="" referrerPolicy='no-referrer' className="object-cover object-center w-8 h-8 rounded-full shadow-sm bg-gray-500 border-gray-300" />
                     <div className="-space-y-1">
                         <h2 className="text-sm font-semibold leading-none mb-0">{userName}</h2>
                         <span className="inline-block text-xs leading-none text-gray-600">Somewhere</span>

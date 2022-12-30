@@ -53,7 +53,7 @@ const SignUp = () => {
 
     const saveUserInfo = (name, photoURL, email, institution, address) => {
         const user = { name, photoURL, email, institution, address };
-        fetch('http://localhost:5000/users', {
+        fetch('https://postbook-server.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

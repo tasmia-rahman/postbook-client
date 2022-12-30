@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import aboutImg from '../../../assets/images/undraw_about_me_re_82bv.svg';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import UserModal from '../UserModal/UserModal';
+import { Spinner } from 'react-bootstrap';
 
 const About = () => {
     const { user } = useContext(AuthContext);
@@ -13,14 +14,20 @@ const About = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const { data: selectedUser = [], refetch } = useQuery({
+    const { data: selectedUser = [], refetch, isLoading } = useQuery({
         queryKey: ['selectedUser', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/users/${user?.email}`);
+            const res = await fetch(`https://postbook-server.vercel.app/users/${user?.email}`);
             const data = await res.json();
             return data;
         }
     });
+
+    if (isLoading) {
+        return <div className='text-center my-60'>
+            <Spinner animation="border" />
+        </div>;
+    }
 
     return (
         <div className="bg-gray-100 text-gray-800">

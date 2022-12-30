@@ -21,7 +21,7 @@ const Footer = () => {
                 <FaInstagram className='mx-3'></FaInstagram>
             </div>
             <div className="flex items-center justify-center pt-6 pb-2 text-sm">
-                <span>© Copyright 1986. All Rights Reserved.</span>
+                <span>© Copyright 2022. All Rights Reserved.</span>
             </div>
         </div>
     );

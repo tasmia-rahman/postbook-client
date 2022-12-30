@@ -16,7 +16,7 @@ const UserModal = ({ show, handleClose, selectedUser, refetch }) => {
 
         const user = { name, email, institution, address };
 
-        fetch(`http://localhost:5000/users/${_id}`, {
+        fetch(`https://postbook-server.vercel.app/users/${_id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(user)
