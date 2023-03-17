@@ -14,9 +14,11 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
+    console.log(from);
 
     if (token) {
-        navigate(from, { replace: true });
+        // navigate(from, { replace: true });
+        navigate('/');
     }
 
     const handleSubmit = (event) => {

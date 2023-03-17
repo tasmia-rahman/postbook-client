@@ -3,7 +3,7 @@ import loveSvg from '../../../assets/images/love-svgrepo-com.svg';
 // import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
-import { Link } from 'react-router-dom';
+import { json, Link } from 'react-router-dom';
 
 const PostCard = ({ post, refetch }) => {
     const { user } = useContext(AuthContext);
@@ -27,20 +27,11 @@ const PostCard = ({ post, refetch }) => {
     //     }
     // });
 
-    const [love, setLove] = useState(false);
-    const [loveCount, setLoveCount] = useState(null);
+    const love = { uid: user?.uid };
+    const loveArr = post.love;
+    const found = loveArr?.find(element => element.uid === love.uid);
     const [comments, setComments] = useState([]);
     const [addComment, setAddComment] = useState(false);
-
-    useEffect(() => {
-        fetch(`https://postbook-server.vercel.app/posts/${_id}`)
-            .then(res => res.json())
-            .then(data => {
-                setLoveCount(data.loveCount);
-                // setLoading(false);
-            })
-            .catch(err => console.error(err))
-    }, [_id, love]);
 
     useEffect(() => {
         fetch(`https://postbook-server.vercel.app/comments/${_id}`)
@@ -88,12 +79,14 @@ const PostCard = ({ post, refetch }) => {
         }
         else {
             fetch(`https://postbook-server.vercel.app/posts/addLove/${_id}`, {
-                method: 'PUT'
+                method: 'PUT',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(love)
             })
                 .then(res => res.json())
                 .then(data => {
                     if (data.modifiedCount > 0) {
-                        setLove(true);
+                        refetch();
                     }
                 })
         }
@@ -101,12 +94,14 @@ const PostCard = ({ post, refetch }) => {
 
     const handleRemoveLove = () => {
         fetch(`https://postbook-server.vercel.app/posts/removeLove/${_id}`, {
-            method: 'PUT'
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(love)
         })
             .then(res => res.json())
             .then(data => {
                 if (data.modifiedCount > 0) {
-                    setLove(false);
+                    refetch();
                 }
             })
     }
@@ -130,13 +125,13 @@ const PostCard = ({ post, refetch }) => {
                 <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                         {
-                            love ?
+                            found ?
                                 <>
                                     <div className="flex items-center space-x-3">
                                         <button onClick={handleRemoveLove} type="button" title="Like post" className="flex items-center justify-center mr-1">
                                             <img src={loveSvg} alt='love' className="w-5 h-5" />
                                         </button>
-                                        {loveCount}
+                                        {loveArr?.length}
                                     </div>
                                 </>
                                 :
@@ -147,7 +142,7 @@ const PostCard = ({ post, refetch }) => {
                                                 <path d="M453.122,79.012a128,128,0,0,0-181.087.068l-15.511,15.7L241.142,79.114l-.1-.1a128,128,0,0,0-181.02,0l-6.91,6.91a128,128,0,0,0,0,181.019L235.485,449.314l20.595,21.578.491-.492.533.533L276.4,450.574,460.032,266.94a128.147,128.147,0,0,0,0-181.019ZM437.4,244.313,256.571,425.146,75.738,244.313a96,96,0,0,1,0-135.764l6.911-6.91a96,96,0,0,1,135.713-.051l38.093,38.787,38.274-38.736a96,96,0,0,1,135.765,0l6.91,6.909A96.11,96.11,0,0,1,437.4,244.313Z"></path>
                                             </svg>
                                         </button>
-                                        {loveCount}
+                                        {loveArr?.length}
                                     </div>
                                 </>
                         }
@@ -160,8 +155,8 @@ const PostCard = ({ post, refetch }) => {
                             {comments.length}
                         </div>
                     </div>
-                    <button className='flex items-center justify-center bg-indigo-600 px-2 py-1 rounded'>
-                        <Link to={`/details/${_id}`} className="no-underline text-white">
+                    <button className='flex items-center justify-center text-indigo-600 px-2 py-1 rounded'>
+                        <Link to={`/details/${_id}`}>
                             Details
                         </Link>
                     </button>
@@ -172,7 +167,7 @@ const PostCard = ({ post, refetch }) => {
                         user?.email &&
                         <form onSubmit={handleAddComment} className='flex justify-between items-center'>
                             <input type="text" name='comment' placeholder="Add a comment..." className="w-full py-2 px-2 my-2 bg-transparent border rounded text-sm pl-0 text-gray-800" data-ms-editor="true" />
-                            <button type='submit' className="h-9 px-2 py-1 ml-3 font-semibold rounded text-indigo-600 hover:bg-indigo-600 hover:text-white">Add</button>
+                            <button type='submit' className="h-9 px-2 py-1 ml-3 font-semibold rounded bg-indigo-600 text-white">Add</button>
                         </form>
                     }
                     <h5 className='mt-0'>Comments</h5>
