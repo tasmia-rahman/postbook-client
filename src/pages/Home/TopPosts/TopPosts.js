@@ -4,7 +4,7 @@ import PostCard from './../../Media/PostCard/PostCard';
 import { Spinner } from 'react-bootstrap';
 
 const TopPosts = () => {
-    const { data: topPosts = [], isLoading } = useQuery({
+    const { data: topPosts = [], isLoading, refetch } = useQuery({
         queryKey: ['topPosts'],
         queryFn: async () => {
             const res = await fetch('https://postbook-server.vercel.app/topPosts');
@@ -25,7 +25,7 @@ const TopPosts = () => {
                 <h3 className='text-center'>Top Posts</h3>
                 <div className='w-10/12 mx-auto my-8 grid grid-col-1 lg:grid-cols-3 gap-10'>
                     {
-                        topPosts?.map((topPost) => <PostCard key={topPost._id} post={topPost}></PostCard>)
+                        topPosts?.map((topPost) => <PostCard key={topPost._id} post={topPost} refetch={refetch}></PostCard>)
                     }
                 </div>
             </div>
